@@ -3,6 +3,7 @@ from flask_cors import CORS
 from resources.items import item
 from resources.users import users
 import models
+import os
 from flask_login import LoginManager
 
 DEBUG = True
@@ -51,6 +52,10 @@ def index():
 @app.route('/sayhi/<username>')
 def hello(username):
 	return "Hello {}".format(username)
+
+if 'ON_HEROKU' in os.environ:
+  print('\non heroku!')
+  models.initialize()    
 
 if __name__ == "__main__":
 	models.initialize()
