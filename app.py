@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, g
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 from resources.items import item
 from resources.users import users
 import models
@@ -10,23 +10,26 @@ DEBUG = True
 PORT = 8000
 
 app = Flask(__name__)
-
+app.config['CORS_HEADERS'] = 'Content-Type'
+# @cross_origin()
 app.secret_key = "This is the secret key. Here it is."
 
 login_manager = LoginManager()
 
 login_manager.init_app(app)
 
+
+
+# CORS(app, supports_credentials = True)
+# https://developer-resources-react.herokuapp.com'
+CORS(item, origins=['http://localhost:3000', 'https://developer-resources-react.herokuapp.com'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', 'https://developer-resources-react.herokuapp.com'], supports_credentials=True)
+
+
+
 app.register_blueprint(item, url_prefix='/api/v1/resources')
 app.register_blueprint(users, url_prefix='/api/v1/users')
-
-
-CORS(app, supports_credentials = True)
-# CORS(resources, origins=['http://localhost:3000', 'https://developer-resources-react.herokuapp.com/', supports_credentials = True]
-# CORS(users, origins=['http://localhost:3000', 'https://developer-resources-react.herokuapp.com/', supports_credentials = True]
-# CORS(resources, origins=['http://localhost:3000', 'https://developer-resources.herokuapp.com/', supports_credentials = True]
-# CORS(users, origins=['http://localhost:3000', 'https://developer-resources.herokuapp.com/', supports_credentials = True]
-
+@cross_origin()
 
 @login_manager.user_loader
 def load_user(user_id):
