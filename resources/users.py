@@ -36,7 +36,7 @@ def register():
         print(created_user)
         created_user_dict = model_to_dict(created_user)
         print(created_user_dict)
-
+        login_user(created_user)
         created_user_dict.pop('password')
         return jsonify(
             data=created_user_dict,
