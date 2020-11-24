@@ -24,6 +24,9 @@ app.register_blueprint(users, url_prefix='/api/v1/users')
 # CORS(app, supports_credentials = True)
 CORS(resources, origins=['http://localhost:3000', 'https://developer-resources-react.herokuapp.com/', supports_credentials = True]
 CORS(users, origins=['http://localhost:3000', 'https://developer-resources-react.herokuapp.com/', supports_credentials = True]
+CORS(resources, origins=['http://localhost:3000', 'https://developer-resources.herokuapp.com/', supports_credentials = True]
+CORS(users, origins=['http://localhost:3000', 'https://developer-resources.herokuapp.com/', supports_credentials = True]
+
 
 @login_manager.user_loader
 def load_user(user_id):
